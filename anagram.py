@@ -2,7 +2,7 @@
 f = open("dictionary.txt")
 data = f.read()
 f.close()
-dictionary_data = data.split("\n")
+dictionary_data = data.lower().split("\n")#大文字が含まれている場合、小文字に文字に直す
 
 
 #1文字enter無し入力getch()
@@ -22,10 +22,14 @@ except ImportError:
         finally:
             termios.tcsetattr(fd, termios.TCSADRAIN, old)#fdモードをoldから取得
 
+            
 #main
-input_char = ""
-match = ""
-long_char = ""
+input_char = ""#入力された文字
+match = ""#入力された文字に含まれる単語全て
+long_char = ""#BESTな単語
+char_point = 0#dictionaryの得点
+long_char_point = 0#BESTな単語の得点
+
 while True:
     print(match)
     print("BEST : " + long_char)
@@ -33,7 +37,7 @@ while True:
     key = ord(getch())
     input_char += chr(key)
     print("\n>>> " + input_char + "\n")
-    if key == 3:#C-x-c
+    if key == 3:#C-x-cで終了
         break
     else:
         match = ""
@@ -49,10 +53,17 @@ while True:
                     break
             if count != 1:
                 match += dictionary + " "
-                if len(long_char) < len(dictionary):
+                char_point = len(dictionary)
+                
+                for d in dictionary:
+                    if d == "c" or d == "f" or d == "h" or d == "l" or d == "m" or d == "p" or d == "v" or d == "w" or d == "y":
+                        char_point += 1
+                    elif d == "j" or d == "k" or d == "q" or d == "x" or d == "z":
+                        char_point += 2
+                if long_char_point < char_point:
                     long_char = dictionary
-            
-            
+                    long_char_point = char_point
+                     
 
         
                      
