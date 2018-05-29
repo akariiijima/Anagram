@@ -1,8 +1,8 @@
 #辞書を読み込み
-f = open("dictionary.txt")
-data = f.read()
-f.close()
-dictionary_data = data.lower().split("\n")#大文字が含まれている場合、小文字に文字に直す
+dictionary_data = []
+with open("dictionary.txt", "r") as f:
+    for line in f:
+        dictionary_data.append(line.split())
 
 
 #1文字enter無し入力getch()
@@ -37,12 +37,19 @@ while True:
     key = ord(getch())
     input_char += chr(key)
     print("\n>>> " + input_char + "\n")
+
+    #input_charをsortして戻す
+    sort_char = ""
+    for c in sorted(input_char, key = str):
+        sort_char += c
+    input_char = sort_char
+        
     if key == 3:#C-x-cで終了
         break
     else:
         match = ""
         for dictionary in dictionary_data:
-            each_dictionary = list(dictionary)
+            each_dictionary = list(dictionary[1])
             char = input_char
             count = 0
             for match_char in each_dictionary:
@@ -52,16 +59,16 @@ while True:
                     count = 1
                     break
             if count != 1:
-                match += dictionary + " "
-                char_point = len(dictionary)
+                match += dictionary[0] + " "
+                char_point = len(dictionary[1])
                 
-                for d in dictionary:
+                for d in dictionary[1]:
                     if d == "c" or d == "f" or d == "h" or d == "l" or d == "m" or d == "p" or d == "v" or d == "w" or d == "y":
                         char_point += 1
                     elif d == "j" or d == "k" or d == "q" or d == "x" or d == "z":
                         char_point += 2
                 if long_char_point < char_point:
-                    long_char = dictionary
+                    long_char = dictionary[0]
                     long_char_point = char_point
                      
 

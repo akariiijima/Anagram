@@ -5,7 +5,7 @@
 dictionary = []
 with open("dictionary.txt", "r") as f:
     for line in f:
-        dictionary.append(line.split())
+        dictionary.append(line.lower().split())#大文字が含まれている場合、小文字に文字に直す
 
 #1:sortした文字をsort
 if len(dictionary[0]) == 1:
