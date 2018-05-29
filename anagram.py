@@ -24,7 +24,8 @@ except ImportError:
 
             
 #main
-input_char = ""#入力された文字
+input_char = ""#(後にsortされる)入力された文字
+input_char_origin = ""#入力された文字をそのまま連ねたもの
 match = ""#入力された文字に含まれる単語全て
 long_char = ""#BESTな単語
 char_point = 0#dictionaryの得点
@@ -36,7 +37,8 @@ while True:
     
     key = ord(getch())
     input_char += chr(key)
-    print("\n>>> " + input_char + "\n")
+    input_char_origin += chr(key)
+    print("\n>>> " + input_char_origin + "\n")
 
     #input_charをsortして戻す
     sort_char = ""
@@ -55,14 +57,14 @@ while True:
             for match_char in each_dictionary:
                 if char.find(match_char) != -1:
                     char = char[:(char.find(match_char))]+char[(char.find(match_char))+1:]
-                else:
+                else:#含まれる文字が無かったら
                     count = 1
                     break
-            if count != 1:
+            if count != 1:#matchした文字があったら
                 match += dictionary[0] + " "
                 char_point = len(dictionary[1])
                 
-                for d in dictionary[1]:
+                for d in dictionary[1]:#点数の高い文字の検索
                     if d == "c" or d == "f" or d == "h" or d == "l" or d == "m" or d == "p" or d == "v" or d == "w" or d == "y":
                         char_point += 1
                     elif d == "j" or d == "k" or d == "q" or d == "x" or d == "z":
