@@ -1,8 +1,8 @@
 #辞書を読み込み
-dictionary = []
-with open("dictionary.txt", "r") as f:
-    for line in f:
-        dictionary.append(line.split())
+f = open("dictionary.txt")
+data = f.read()
+f.close()
+dictionary_data = data.split("\n")
 
 
 #1文字enter無し入力getch()
@@ -24,37 +24,35 @@ except ImportError:
 
 #main
 input_char = ""
+match = ""
+long_char = ""
 while True:
+    print(match)
+    print("BEST : " + long_char)
+    
     key = ord(getch())
+    input_char += chr(key)
+    print("\n>>> " + input_char + "\n")
     if key == 3:#C-x-c
         break
     else:
-        input_char += chr(key)
-        print('>>> ' + input_char)
+        match = ""
+        for dictionary in dictionary_data:
+            each_dictionary = list(dictionary)
+            char = input_char
+            count = 0
+            for match_char in each_dictionary:
+                if char.find(match_char) != -1:
+                    char = char[:(char.find(match_char))]+char[(char.find(match_char))+1:]
+                else:
+                    count = 1
+                    break
+            if count != 1:
+                match += dictionary + " "
+                if len(long_char) < len(dictionary):
+                    long_char = dictionary
+            
+            
 
-        #入力された文字をsortする
-        for i in range(len(input_char)):
-            sort_char = ""
-            for c in sorted(input_char, key = str):
-                sort_char += c
         
-        #2分木探索
-        low = 0
-        high = len(dictionary) - 1
-        
-        while (low <= high):
-            middle = (low + high) // 2
-            #print(low)
-            #print(high)
-            #print("\n")
-            if sort_char == dictionary[middle][1]:
-                print("match : " + dictionary[middle][0])
-                break
-            elif sort_char < dictionary[middle][1]:
-                #print("row")
-                high = middle -1
-            elif sort_char > dictionary[middle][1]:
-                #print("high")
-                low = middle + 1
-
                      
