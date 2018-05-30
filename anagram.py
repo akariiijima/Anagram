@@ -18,7 +18,7 @@ except ImportError:
         old = termios.tcgetattr(fd)#fdの端末属性をゲットする
         try:
             tty.setraw(fd)#fdのモードをrawモードに切替
-            return sys.stdin.read(16)#入力したデータを受け取って表示
+            return sys.stdin.read(1)#入力したデータを受け取って表示
         finally:
             termios.tcsetattr(fd, termios.TCSADRAIN, old)#fdモードをoldから取得
 
