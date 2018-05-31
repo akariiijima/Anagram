@@ -65,9 +65,9 @@ while True:
                 char_point = len(dictionary[1])
                 
                 for d in dictionary[1]:#点数の高い文字の検索
-                    if d == "c" or d == "f" or d == "h" or d == "l" or d == "m" or d == "p" or d == "v" or d == "w" or d == "y" or d == "q":
+                    if d == "c" or d == "f" or d == "h" or d == "l" or d == "m" or d == "p" or d == "v" or d == "w" or d == "y":
                         char_point += 1
-                    elif d == "j" or d == "k" or d == "x" or d == "z":
+                    elif d == "j" or d == "k" or d == "q" or d == "x" or d == "z":
                         char_point += 2
                 if long_char_point < char_point:
                     long_char = dictionary[0]
