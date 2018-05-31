@@ -13,6 +13,8 @@ if len(dictionary[0]) == 1:
         char = ""
         for c in sorted(dictionary[i][0], key = str):
             char += c
+        if char.find("q") != -1:
+            char = char[:(char.find("u"))]+char[(char.find("u"))+1:]
         dictionary[i].append(char)
 sort_dictionary = sorted(dictionary, key=lambda x: x[1])
 
